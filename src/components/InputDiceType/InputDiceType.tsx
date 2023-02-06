@@ -2,9 +2,12 @@ import React from 'react'
 import { TextField, Fab } from '@mui/material';
 import CasinoIcon from '@mui/icons-material/Casino';
 
+//Do poprawy
 const WhitchDice = () => {
-    
-return 
+    let inputValue = TextField.value; 
+    let rollResult = Math.floor(Math.random()* `${inputValue}` +1 ) //inputrequest//
+       
+return rollResult
 }
 
 const InputDiceType = () => {
