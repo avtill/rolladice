@@ -4,10 +4,10 @@ import logoRollADice from '././mycomponents/logoRollADice.gif';
 
 
 const Header = () => {
-  return (
+  return (<>
     <Typography variant='h1' fontSize={40}> Roll a Dice</Typography>
-//   <img src={'././mycomponents/logoRollADice.gif'} alt='logo'/>
-  )
+  {/* <img src={logoRollADice} alt='logo'/> */}
+  </>)
 }
 
 export default Header
