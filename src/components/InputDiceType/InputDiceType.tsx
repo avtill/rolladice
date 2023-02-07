@@ -1,6 +1,8 @@
 import React from 'react' 
-import { TextField, Fab } from '@mui/material';
+import { TextField, Fab, Box} from '@mui/material';
 import CasinoIcon from '@mui/icons-material/Casino';
+import Switch from '@mui/material/Switch';
+
 
 //Do poprawy
 // const WhitchDice = () => {
@@ -10,14 +12,24 @@ import CasinoIcon from '@mui/icons-material/Casino';
 // return rollResult
 // }
 
+
 const InputDiceType = () => {
-  return (<div style={{margin:"10px"}}>
-  <TextField id="outlined-basic" label="?dice" variant="outlined" sx={{mt:2}} />
-  <TextField id="outlined-basic" label="dice?" variant="outlined" sx={{mt:2}} />
-  <TextField id="outlined-basic" label="MOD?" variant="outlined" sx={{mt:2}}/>
+    return (<div style={{margin:"10px"}}>
+    <Box>
+  <Switch defaultChecked color="success" /> 
+    <TextField id="outlined-basic" label="?dice" variant="outlined" sx={{mt:2}} />
+    </Box>
+    <Box>
+ <Switch defaultChecked color="success" /> 
+    <TextField id="outlined-basic" label="dice?" variant="outlined" sx={{mt:2}} />
+    </Box>
+    <Box>
+  <Switch defaultChecked color="success" />
+    <TextField id="outlined-basic" label="MOD?" variant="outlined" sx={{mt:2}}/>
+    </Box>
   <br />
-  <Fab size="small" color="secondary" aria-label="add"sx={{margin:2}}>
-  <CasinoIcon  />
+      <Fab size="small" color="secondary" aria-label="add"sx={{margin:2}}>
+       <CasinoIcon  />
   {/* onClick={WhitchDice} */}
   </Fab>
     </div>
