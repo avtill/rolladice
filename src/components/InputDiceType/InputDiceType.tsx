@@ -28,7 +28,7 @@ const InputDiceType = () => {
     <TextField id="outlined-basic" label="MOD?" variant="outlined" sx={{mt:2}}/>
     </Box>
   <br />
-      <Fab size="small" color="secondary" aria-label="add"sx={{margin:2}}>
+      <Fab size="small" color="secondary" aria-label="add" sx={{margin:2}}>
        <CasinoIcon  />
   {/* onClick={WhitchDice} */}
   </Fab>
