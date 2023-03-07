@@ -1,53 +1,46 @@
-import React from 'react' 
-import { TextField, Fab, Box, colors} from '@mui/material';
+import { useForm } from "react-hook-form";
 import CasinoIcon from '@mui/icons-material/Casino';
-import Switch from '@mui/material/Switch';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Typography from '@mui/material';
+import { Fab, colors } from "@mui/material";
+import { useState } from "react";
 
-//Do poprawy
-// const WhitchDice = () => {
-//     let inputValue = TextField.value; 
-//     let rollResult = Math.floor(Math.random()* `${inputValue}` +1 ) //inputrequest//
-       
-// return rollResult
-// }
 
+interface DiceInputValues{
+  howMany: number,
+  diceType: number,
+  mod: number,
+}
 
 const InputDiceType = () => {
-    return (<><FormGroup style={{margin:"10px"}}>
-    <Box sx={{mt:2}}>
-  <FormControlLabel sx={{color:'GrayText'}}
-  control={<Switch color="success" />} 
-  label='więcej niż 1 kość'
-  labelPlacement='bottom'
-  disabled={false} /> 
-    <TextField id="outlined-basic" label="?dice" variant="outlined"  />
-    </Box>
-    <Box sx={{mt:2}}>
-    <FormControlLabel sx={{color:'GrayText'}}
-  control={<Switch color="success" />} 
-  label='niestandardowa kość'
-  labelPlacement='bottom'
-  disabled={false} /> 
-    <TextField id="outlined-basic" label="dice?" variant="outlined"  />
-    </Box>
-    <Box sx={{mt:2}}>
-    <FormControlLabel sx={{color:'GrayText'}}
-  control={<Switch color="success" />} 
-  label='modyfikatory?'
-  labelPlacement='bottom'
-  disabled={false} /> 
-    <TextField id="outlined-basic" label="MOD?" variant="outlined"/>
-    </Box>
-  <br /></FormGroup>
-      <Fab size="small" color="secondary" aria-label="add" sx={{margin:2}} >
-       <CasinoIcon  />
-  {/* onClick={WhitchDice} */}
-  </Fab>
+  const {register, handleSubmit} =useForm<DiceInputValues>();
+  const [diceInfo, setDiceInfo] =useState({
+    howMany: 1,
+    diceType: 0,
+    mod: 0,
+  });
+  
+  const diceInfoToMath = (data: DiceInputValues) => {
+    setDiceInfo(data)
+  };
+
+  const diceResult =({howMany, diceType, mod}:DiceInputValues) => {
+    const diceRandomResult = Math.floor(Math.random()*(diceType - 1) +1);
+    const toReturn = howMany * (diceRandomResult + mod)
+    console.log(howMany, diceType, mod, diceRandomResult)
+    return toReturn
+  }
+
+    return  (<>
+     <form onSubmit={handleSubmit(diceInfoToMath)}>
+      <input placeholder="How many dice?" {...register("howMany", {required: true})} style={{display:"block", margin:"auto"}}/>
+      <input placeholder="Dice type" {...register("diceType", {required: true})} style={{display:"block", margin:"auto"}}/>
+      <input placeholder="mod?" {...register("mod", {required: true})} style={{display:"block", margin:"auto"}}/><br />
+      <Fab size="small" color="secondary" aria-label="add" sx={{margin:2}} type="submit" >
+<CasinoIcon  />
+</Fab> 
+    </form>
+    <span>{diceResult({...diceInfo})}</span>
     </>
-  )
+)  
 }
 
 export default InputDiceType
