@@ -23,17 +23,32 @@ const InputDiceType = () => {
   };
 
   const diceResult =({howMany, diceType, mod}:DiceInputValues) => {
-    const diceRandomResult = Math.floor(Math.random()*(diceType - 1) +1);
-    const toReturn = howMany * (diceRandomResult + mod)
-    console.log(howMany, diceType, mod, diceRandomResult)
-    return toReturn
+    let sumDiceRandomResult = 0;    
+    let criticalFail = 0;
+    let criticalSuccess = 0;
+for (let i = 0; i<howMany; i++) {
+  let diceRandomResult = Math.floor(Math.random()*(diceType - 1) +1);
+sumDiceRandomResult = sumDiceRandomResult + diceRandomResult;
+    if(diceRandomResult === 6) {
+      criticalSuccess = criticalSuccess +1;
+    }
+    else if (diceRandomResult === 1) {
+      criticalFail = criticalFail +1
+    }
+}
+    const toReturn = sumDiceRandomResult + (howMany * mod);
+
+    console.log(howMany, sumDiceRandomResult, mod);
+    console.log(toReturn);
+
+    return toReturn 
   }
 
     return  (<>
      <form onSubmit={handleSubmit(diceInfoToMath)}>
-      <input placeholder="How many dice?" {...register("howMany", {required: true})} style={{display:"block", margin:"auto"}}/>
-      <input placeholder="Dice type" {...register("diceType", {required: true})} style={{display:"block", margin:"auto"}}/>
-      <input placeholder="mod?" {...register("mod", {required: true})} style={{display:"block", margin:"auto"}}/><br />
+      <input placeholder="How many dice?" {...register("howMany", {required: true})} style={{display:"block", margin:"auto"}} type="number"/>
+      <input placeholder="Dice type" {...register("diceType", {required: true})} style={{display:"block", margin:"auto"}} type="number"/>
+      <input placeholder="mod?" {...register("mod", {required: true})} style={{display:"block", margin:"auto"}}type="number" /><br />
       <Fab size="small" color="secondary" aria-label="add" sx={{margin:2}} type="submit" >
 <CasinoIcon  />
 </Fab> 
