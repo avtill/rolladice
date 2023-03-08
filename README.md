@@ -1,3 +1,17 @@
+My own first app :)
+
+This app is to roll a dice. You may:
+-use unusual dice
+-add Modificator to your roll
+-make multiple roll (for now only the same  type of dice).
+
+It's still to develop! and I have plan for this :)
+Joanna Mikulińska
+https://github.com/avtill
+https://www.linkedin.com/in/mikulinska/
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
