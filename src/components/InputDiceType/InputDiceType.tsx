@@ -90,7 +90,6 @@ for (let i = 0; i<howMany; i++) {
         </tr>
       </table>
     </div>
-    {/* <span>{diceResult({...diceInfo})}</span> */}
     </>
 )  
 }
