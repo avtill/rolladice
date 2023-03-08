@@ -21,31 +21,35 @@ const InputDiceType = () => {
   const diceInfoToMath = (data: DiceInputValues) => {
     setDiceInfo(data)
   };
-
+  let toReturn = {
+    criticalFail:0,
+    criticalSuccess: 0,
+    sumDiceRandomResult: 0,
+    sumToReturn: 0,
+    resultArray: [0]
+  }  
   const diceResult =({howMany, diceType, mod}:DiceInputValues) => {
-    let sumDiceRandomResult = 0;    
-    let criticalFail = 0;
-    let criticalSuccess = 0;
 for (let i = 0; i<howMany; i++) {
   let diceRandomResult = Math.floor(Math.random()*(diceType - 1) +1);
-sumDiceRandomResult = sumDiceRandomResult + diceRandomResult;
+ 
+  toReturn.sumDiceRandomResult = toReturn.sumDiceRandomResult + diceRandomResult;
+  toReturn.resultArray.push(diceRandomResult);
     if(diceRandomResult === 6) {
-      criticalSuccess = criticalSuccess +1;
+      toReturn.criticalSuccess = toReturn.criticalSuccess +1;
     }
     else if (diceRandomResult === 1) {
-      criticalFail = criticalFail +1
+      toReturn.criticalFail = toReturn.criticalFail +1
     }
 }
-    const toReturn = sumDiceRandomResult + (howMany * mod);
-
-    console.log(howMany, sumDiceRandomResult, mod);
+    toReturn.sumToReturn = toReturn.sumDiceRandomResult + (howMany * mod);
+    toReturn.resultArray = toReturn.resultArray.slice(1);
     console.log(toReturn);
 
     return toReturn 
   }
 
     return  (<>
-     <form onSubmit={handleSubmit(diceInfoToMath)}>
+     <form onSubmit={handleSubmit(diceInfoToMath)} >
       <input placeholder="How many dice?" {...register("howMany", {required: true})} style={{display:"block", margin:"auto"}} type="number"/>
       <input placeholder="Dice type" {...register("diceType", {required: true})} style={{display:"block", margin:"auto"}} type="number"/>
       <input placeholder="mod?" {...register("mod", {required: true})} style={{display:"block", margin:"auto"}}type="number" /><br />
@@ -53,7 +57,40 @@ sumDiceRandomResult = sumDiceRandomResult + diceRandomResult;
 <CasinoIcon  />
 </Fab> 
     </form>
-    <span>{diceResult({...diceInfo})}</span>
+    <div>
+      <h2>Result</h2>
+      <table style={{margin:"auto", border: "1px solid"}} {...diceResult({...diceInfo})}>
+        <tr>
+          <td style={{border: "1px solid"}}>How many dice</td>
+          <td style={{border: "1px solid"}}>{diceInfo.howMany}</td>
+        </tr>
+        <tr>
+          <td style={{border: "1px solid"}}>Dice type</td>
+          <td style={{border: "1px solid"}}>{diceInfo.diceType}</td>
+        </tr>
+        <tr>
+          <td style={{border: "1px solid"}}>MOD?</td>
+          <td style={{border: "1px solid"}}>{diceInfo.mod > 0? "Yes" : "No"}</td>
+        </tr>
+        <tr>
+          <td style={{border: "1px solid"}}>Total result</td>
+          <td style={{border: "1px solid"}}><strong>{toReturn.sumToReturn} </strong></td>
+        </tr>  
+        <tr>
+          <td style={{border: "1px solid"}}>How many critical Success</td>
+          <td style={{border: "1px solid"}}>{toReturn.criticalSuccess}</td>
+        </tr>
+        <tr>
+          <td style={{border: "1px solid"}}>How many critical Failures</td>
+          <td style={{border: "1px solid"}}>{toReturn.criticalFail}</td>
+          </tr>
+        <tr>
+          <td style={{border: "1px solid"}}>All results</td>
+          <td style={{border: "1px solid"}}>{toReturn.resultArray}</td>
+        </tr>
+      </table>
+    </div>
+    {/* <span>{diceResult({...diceInfo})}</span> */}
     </>
 )  
 }
